@@ -1,0 +1,35 @@
+AppBundle\Entity\Product:
+    type: entity
+    table: null
+    repositoryClass: AppBundle\Repository\ProductRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: 255
+        price:
+            type: float
+        description:
+            type: string
+            length: 255
+
+    manyToOne:
+        category:
+            targetEntity: AppBundle\Entity\ProductCategory
+            joinColumn:
+                name: category_id
+                referencedColumnName: id
+
+    oneToMany:
+        specifications:
+            targetEntity: AppBundle\Entity\Specs\Value
+            orphanRemoval: true
+            cascade: ["persist", "remove"]
+            mappedBy: product
+
+    lifecycleCallbacks: {  }

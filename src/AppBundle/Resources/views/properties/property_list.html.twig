@@ -1,0 +1,67 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+{% block page_icon %}
+    options
+{% endblock %}
+
+{% block page_sub_title %}
+    Produktų specifikacijos savybės
+{% endblock %}
+
+{% block page_name %}
+    Specifikacijos
+{% endblock %}
+
+{% block content %}
+    <a href="{{ path('property_new') }}">
+        <button class="ui basic mini icon button">
+            <i class="icon plus"></i>
+            Nauja savybė
+        </button>
+    </a>
+
+    <br>
+
+    <table class="ui single line small compact table">
+        <thead>
+        <tr>
+            <th>
+                <i class="icon archive"></i>
+                &nbsp;
+                Savybės pavadinimas
+            </th>
+            <th width="50px"></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for property in properties %}
+            <tr>
+                <td>
+                    {{ property.name }}
+                </td>
+                <td>
+                    <a href="{{ path('property_edit', {'property': property.id}) }}">
+                        <button class="ui orange icon mini button">
+                            <i class="icon edit"></i>
+                            Redaguoti
+                        </button>
+                    </a>
+
+                    <div class="ui icon top left pointing dropdown mini button">
+                        <i class="wrench icon"></i>
+                        <div class="menu">
+                            <div class="header">Savybės nustatymai</div>
+                            <div class="item">
+                                <a href="{{ path('property_remove', {'property': property.id}) }}">
+                                    <i class="icon trash"></i>
+                                    Ištrinti
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

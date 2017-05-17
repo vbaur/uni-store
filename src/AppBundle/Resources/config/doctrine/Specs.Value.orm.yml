@@ -1,0 +1,30 @@
+AppBundle\Entity\Specs\Value:
+    type: entity
+    table: null
+    repositoryClass: AppBundle\Repository\Specs\ValueRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        value:
+            type: string
+            length: 255
+
+    manyToOne:
+        property:
+            targetEntity: AppBundle\Entity\Specs\Property
+            inversedBy: values
+            joinColumn:
+                name: property_id
+                referencedColumnName: id
+        product:
+            targetEntity: AppBundle\Entity\Product
+            inversedBy: specifications
+            joinColumn:
+                name: product_id
+                referencedColumnName: id
+
+    lifecycleCallbacks: {  }

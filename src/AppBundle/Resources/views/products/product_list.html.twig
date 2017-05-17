@@ -1,0 +1,160 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+{% block page_icon %}
+    list
+{% endblock %}
+
+{% block page_sub_title %}
+    Mūsų parduodamų prekių sąrašas
+{% endblock %}
+
+{% block page_name %}
+    Prekės
+{% endblock %}
+
+{% block content %}
+    <a href="{{ path('product_new') }}">
+        <button class="ui basic mini icon button">
+            <i class="icon plus"></i>
+            Nauja prekė
+        </button>
+    </a>
+
+    <br>
+    <br>
+
+    <div class="ui grid">
+        <div class="four wide column">
+            <div class="ui segment">
+                <form class="ui mini form" action="" method="get">
+                    <h4>
+                        Pavadinimas
+                    </h4>
+                    <input type="text" placeholder="produkto pavadinimas" name="name" value="{{ 'name' in submittedFilters|keys ? submittedFilters.name }}">
+
+                    <br>
+
+                    <h4>
+                        Kaina
+                    </h4>
+                    <div class="fields">
+                        <div class="field">
+                            <label>Nuo</label>
+                            <input type="text" placeholder="nuo" name="price[0]" value="{{ 'price' in submittedFilters|keys ? submittedFilters.price[0] : '0' }}">
+                        </div>
+                        <div class="field">
+                            <label>Iki</label>
+                            <input type="text" placeholder="iki" name="price[1]" value="{{ 'price' in submittedFilters|keys ? submittedFilters.price[1] : max_price }}">
+                        </div>
+                    </div>
+
+                    <h4>
+                        Kategorijos
+                    </h4>
+                    <select name="category" id="">
+                        <option value="">
+                            -- nepasirinkta --
+                        </option>
+                        {% for category in categories %}
+                            <option value="{{ category.id }}" {{ 'category' in submittedFilters|keys and submittedFilters.category == category.id ? 'selected' }}>
+                                {{ category }}
+                            </option>
+                        {% endfor %}
+                    </select>
+
+                    {% for property in availableFilters %}
+                        <h4>
+                            {{ property.name }}
+                        </h4>
+                        {% for value in property.values %}
+                            {% set checked = 'specs' in submittedFilters|keys and property.id in submittedFilters.specs|keys and value.value in attribute(submittedFilters.specs, property.id) %}
+                            <input name="specs[{{ property.id }}][]" type="checkbox" value="{{ value.value }}" {{ checked ? 'checked' }}>
+                            &nbsp;
+                            <label for="specs[{{ property.id }}][]">
+                                {{ value.value }}
+                            </label>
+                            <br>
+                        {% endfor %}
+                    {% endfor %}
+
+                    <br>
+
+                    <button class="ui mini blue button">
+                        <i class="icon search"></i>
+                        &nbsp;
+                        Ieškoti
+                    </button>
+                </form>
+            </div>
+        </div>
+        <div class="twelve wide column">
+            <table class="ui single line small compact table">
+                <thead>
+                <tr>
+                    <th>
+                        <i class="icon archive"></i>
+                        &nbsp;
+                        Prekė
+                    </th>
+                    <th>
+                        <i class="icon comment"></i>
+                        &nbsp;
+                        Aprašymas
+                    </th>
+                    <th>
+                        <i class="icon tag"></i>
+                        &nbsp;
+                        Kategorija
+                    </th>
+                    <th class="single line">
+                        <i class="icon money"></i>
+                        &nbsp;
+                        Kaina
+                    </th>
+                    <th width="50px"></th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for product in products %}
+                    <tr>
+                        <td>
+                            {{ product.name }}
+                        </td>
+                        <td>
+                            {{ product.description }}
+                        </td>
+                        <td>
+                            {{ product.category }}
+                        </td>
+                        <td>
+                            {{ product.price }}
+                            <i class="icon euro"></i>
+                        </td>
+                        <td>
+                            <a href="{{ path('product_edit', {'product': product.id}) }}">
+                                <button class="ui orange icon mini button">
+                                    <i class="icon edit"></i>
+                                    Redaguoti
+                                </button>
+                            </a>
+
+                            <div class="ui icon top left pointing dropdown mini button">
+                                <i class="wrench icon"></i>
+                                <div class="menu">
+                                    <div class="header">Prekės nustatymai</div>
+                                    <div class="item">
+                                        <a href="{{ path('product_remove', {'product': product.id}) }}">
+                                            <i class="icon trash"></i>
+                                            Ištrinti
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

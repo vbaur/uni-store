@@ -1,0 +1,21 @@
+AppBundle\Entity\Specs\Property:
+    type: entity
+    table: null
+    repositoryClass: AppBundle\Repository\Specs\PropertyRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: 255
+
+    oneToMany:
+        values:
+            targetEntity: AppBundle\Entity\Specs\Value
+            mappedBy: property
+
+    lifecycleCallbacks: {  }

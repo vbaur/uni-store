@@ -1,0 +1,117 @@
+{% extends 'AppBundle:products:product_view.html.twig' %}
+
+{% block page_icon %}
+    edit
+{% endblock %}
+
+{% block content %}
+    <div class="ui stacked segment form">
+        {{ form_start(form) }}
+
+        <h3>
+            <i class="icon browser"></i>
+            Aprašymas
+        </h3>
+
+        {{ form_row(form.name) }} <br>
+        {{ form_row(form.description) }} <br>
+        {{ form_row(form.price) }} <br>
+        {{ form_row(form.category) }} <br>
+
+        <br>
+
+        {{ form_row(form.specifications) }} <br>
+
+        <button class="ui button icon blue" type="submit">
+            <i class="icon save"></i>
+            &nbsp;
+            išsaugoti
+        </button>
+
+        {{ form_end(form) }}
+    </div>
+{% endblock %}
+
+{% block body_end %}
+    <script>
+        var $addButton = $('[data-add-property]');
+        var count = $('[data-property-count]').data('property-count');
+
+        $addButton.click(function(e){
+            e.preventDefault();
+
+            var $table = $(this).closest('table');
+            var $body = $table.find('tbody');
+
+            var proto = $(this).data('add-property');
+
+            count++;
+            proto = proto.replace(new RegExp('__name__', 'g'), count);
+
+            var $proto = $(proto);
+
+            $body.append($proto);
+        });
+
+        $('body').on('click', '[data-remove-property]',function(e){
+            e.preventDefault();
+            $(this).closest('tr').remove();
+        });
+
+    </script>
+{% endblock %}
+
+{% form_theme form _self %}
+
+{% block collection_row %}
+    <div>
+        <h3>
+            <i class="icon options"></i>
+            &nbsp;
+            Specifikacijos
+        </h3>
+
+        <table class="ui single line small brown compact table">
+            <thead>
+            <tr>
+                <th>
+                    Savybė
+                </th>
+                <th>
+                    Reikšmė
+                </th>
+                <th width="50px">
+                    <a data-add-property="{{ form_widget(form.vars.prototype)|e }}" class="ui icon mini basic button">
+                        <i class="icon plus"></i>
+                        &nbsp;
+                        Pridėti
+                    </a>
+                </th>
+            </tr>
+            </thead>
+            <tbody data-property-count="{{ form.children|length }}">
+                {% for row in form.children %}
+                    {{ form_widget(row) }}
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <br>
+{% endblock %}
+
+{% block value_widget %}
+    <tr>
+        <td>
+            {{ form_widget(form.property) }}
+        </td>
+        <td>
+            {{ form_widget(form.value) }}
+        </td>
+        <td style="text-align: right;">
+            <a data-remove-property="" class="ui red mini icon button">
+                <i class="icon trash"></i>
+            </a>
+        </td>
+    </tr>
+{% endblock %}

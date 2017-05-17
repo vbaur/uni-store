@@ -1,0 +1,18 @@
+{% extends 'AppBundle:categories:category_view.html.twig' %}
+
+{% block content %}
+    <div class="ui stacked segment form">
+        {{ form_start(form) }}
+
+        {{ form_row(form.name) }} <br>
+        {{ form_row(form.description) }} <br>
+
+        <button class="ui button icon blue" type="submit">
+            <i class="icon save"></i>
+            &nbsp;
+            išsaugoti
+        </button>
+
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

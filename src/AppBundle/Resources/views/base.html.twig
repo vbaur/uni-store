@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css">
+</head>
+<body>
+    <div class="ui fixed inverted menu">
+        <div class="ui container">
+            <a href="" class="header item">
+                El. parduotuvė
+            </a>
+            <a href="{{ path('product_list') }}" class="item">
+                <i class="icon list"></i>
+                &nbsp;
+                Prekės
+            </a>
+            <a href="{{ path('category_list') }}" class="item">
+                <i class="icon tag"></i>
+                &nbsp;
+                Kategorijos
+            </a>
+            <a href="{{ path('property_list') }}" class="item">
+                <i class="icon options"></i>
+                &nbsp;
+                Specifikacijos
+            </a>
+        </div>
+    </div>
+
+    <br>
+    <br>
+    <br>
+    <br>
+
+    <div class="ui main container">
+        <h1 class="ui header">
+            <div class="content">
+                <i class="icon {% block page_icon %}{% endblock %}"></i>
+                {% block page_name %}{% endblock %}
+                <div class="sub header">
+                    {% block page_sub_title %}{% endblock %}
+                </div>
+            </div>
+        </h1>
+
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"
+            integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.js"></script>
+    <script>
+        $('.ui.dropdown')
+            .dropdown()
+        ;
+    </script>
+
+    {% block body_end %}
+    {% endblock %}
+</body>
+</html>

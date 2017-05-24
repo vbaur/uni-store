@@ -1,0 +1,37 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+{% block content %}
+    <div class="ui stacked segment form">
+        <h3>
+            <i class="cogs icon"></i>
+            <i class="user icon"></i>
+            &nbsp;
+            {{ user.username }}
+        </h3>
+
+        <br>
+        <br>
+
+        {{ form_start(form) }}
+
+            {{ form_row(form.admin) }} <br>
+
+            <button class="ui button icon blue" type="submit">
+                <i class="icon save"></i>
+                &nbsp;
+                išsaugoti
+            </button>
+
+        {{ form_end(form) }}
+    </div>
+{% endblock %}
+
+{% form_theme form _self %}
+
+{% block checkbox_row %}
+    <div class="ui toggle checkbox {{ checked ? 'checked' }}">
+        <input {{ block('widget_attributes') }} class="hidden" type="checkbox" {{ checked ? 'checked' }}>
+        {{ form_label(form) }}
+    </div>
+    <br>
+{% endblock %}

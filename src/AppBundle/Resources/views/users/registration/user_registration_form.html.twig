@@ -1,0 +1,21 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+{% block content %}
+    <div class="ui stacked segment mini form">
+        <h2 class="ui heading">
+            Užsiregistruokite
+        </h2>
+
+        {{ form_start(form) }}
+            {{ form_row(form.username) }}
+            <br>
+            {{ form_row(form.plainPassword.first) }}
+            <br>
+            {{ form_row(form.plainPassword.second) }}
+
+            <br>
+
+            <button class="ui mini green button" type="submit">Register!</button>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

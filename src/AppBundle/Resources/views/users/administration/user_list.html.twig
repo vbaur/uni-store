@@ -1,0 +1,45 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+{% block content %}
+    <table class="ui single line small compact table">
+        <thead>
+        <tr>
+            <th>
+                <i class="icon user"></i>
+                &nbsp;
+                Vartotojo vardas
+            </th>
+            <th>
+                <i class="icon cogs"></i>
+                &nbsp;
+                Administratorius?
+            </th>
+            <th width="50px">
+
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            <tr>
+                <td>
+                    {{ user.username }}
+                </td>
+                <td>
+                    {% if user.admin %}
+                        <i style="color: green" class="icon check"></i>
+                    {% endif %}
+                </td>
+                <td>
+                    <a href="{{ path('edit_user', {'user': user.id}) }}">
+                        <button class="ui orange icon mini button">
+                            <i class="icon edit"></i>
+                            Redaguoti
+                        </button>
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

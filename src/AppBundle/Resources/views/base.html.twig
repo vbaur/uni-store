@@ -19,16 +19,65 @@
                 &nbsp;
                 Prekės
             </a>
-            <a href="{{ path('category_list') }}" class="item">
-                <i class="icon tag"></i>
-                &nbsp;
-                Kategorijos
-            </a>
-            <a href="{{ path('property_list') }}" class="item">
-                <i class="icon options"></i>
-                &nbsp;
-                Specifikacijos
-            </a>
+
+            {% if is_granted('ROLE_ADMIN') %}
+                <a href="{{ path('category_list') }}" class="item">
+                    <i class="icon tag"></i>
+                    &nbsp;
+                    Kategorijos
+                </a>
+                <a href="{{ path('property_list') }}" class="item">
+                    <i class="icon options"></i>
+                    &nbsp;
+                    Specifikacijos
+                </a>
+                <a href="{{ path('users') }}" class="item">
+                    <i class="icon users"></i>
+                    &nbsp;
+                    Vartotojai
+                </a>
+            {% endif %}
+
+            <div class="right menu">
+                {% if app.user %}
+                    <div class="ui dropdown item">
+                        <i class="icon user"></i>
+                        {{ app.user.username }}
+
+                        {% if is_granted('ROLE_ADMIN') %}
+                            &nbsp;
+                            <b style="color: darkgreen">(admin)</b>
+                        {% endif %}
+
+                        <i class="dropdown icon"></i>
+
+                        <div class="menu transition hidden" tabindex="-1">
+                            <a href="{{ path('profile') }}" class="item">
+                                <i class="edit icon"></i>
+                                Profilis
+                            </a>
+                            <a href="{{ path('logout') }}" class="item">
+                                <i class="sign out icon"></i>
+                                Atsijungti
+                            </a>
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="item">
+                        <a href="{{ path('login') }}" class="ui mini blue button">
+                            <i class="icon sign in"></i>
+                            Prisijunkite
+                        </a>
+                        &nbsp;
+                        &nbsp;
+                        &nbsp;
+                        <a href="{{ path('user_registration') }}" class="ui mini green button">
+                            <i class="icon edit"></i>
+                            Užsiregistruokite
+                        </a>
+                    </div>
+                {% endif %}
+            </div>
         </div>
     </div>
 
@@ -59,6 +108,10 @@
     <script>
         $('.ui.dropdown')
             .dropdown()
+        ;
+
+        $('.ui.checkbox')
+            .checkbox()
         ;
     </script>
 

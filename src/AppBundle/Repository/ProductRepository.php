@@ -47,12 +47,14 @@ class ProductRepository extends \Doctrine\ORM\EntityRepository
             $specs = $options['specs'];
 
             $specFilterCount = 0;
+            $valueCounter = 0;
             foreach($specs as $spec => $values) {
                 $specFilterCount++;
 
                 foreach($values as $value) {
-                    $propName = "prop_$spec";
-                    $valName  = "val_$value";
+                    $valueCounter++;
+                    $propName = "prop_$specFilterCount";
+                    $valName  = "val_$valueCounter";
 
                     $qb
                         ->orWhere(

@@ -1,0 +1,27 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+{% block content %}
+    <div class="ui stacked segment form">
+        <h3>
+            <i class="user icon"></i>
+            <i class="edit icon"></i>
+            &nbsp;
+            Mano profilis ({{ user.username }})
+        </h3>
+
+        <br>
+        <br>
+
+        {{ form_start(form) }}
+
+            {{ form_row(form.plainPassword) }} <br>
+
+            <button class="ui button icon blue" type="submit">
+                <i class="icon save"></i>
+                &nbsp;
+                išsaugoti
+            </button>
+
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

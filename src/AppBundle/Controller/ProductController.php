@@ -15,6 +15,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 class ProductController extends Controller
 {
     /**
+     * @Route ("/", name="homepage")
      * @Route("/products", name="product_list")
      */
     public function getProductsAction(Request $request)
